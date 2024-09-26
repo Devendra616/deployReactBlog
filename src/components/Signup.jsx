@@ -3,7 +3,7 @@ import {useForm} from 'react-hook-form'
 import {useDispatch} from 'react-redux'
 import authService from '../appWrite/auth.service'
 import { Form, Link, Navigate,useNavigate  } from 'react-router-dom'
-import {login} from '../store/authSlice'
+import {login as authLogin} from '../store/authSlice'
 import {Button, Input, Logo} from './index'
 
 function Signup() {
@@ -17,10 +17,12 @@ function Signup() {
         setError("")
         try {
             const userAccount =await authService.createAccount(data)
+            
             if(userAccount) {
-                const user = await authService.getCurrentUser(userAccount)
-                if(user) {
-                    dispatch(login(user))
+                const userData = await authService.getCurrentUser(userAccount)
+                console.log("🚀 ~ signup ~ user:", userData);
+                if(userData) {
+                    dispatch(authLogin({userData}))
                     navigate("/")
                 }
             }

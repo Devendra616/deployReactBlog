@@ -20,6 +20,7 @@ function PostForm({post}) {
     const [error, setError] = useState(null)
     const navigate = useNavigate()
     const userData = useSelector((state) => state.auth.userData)
+    console.log("🚀 ~ PostForm ~ userData:", userData);
    
     const submit = async (data) => {
        try {
@@ -44,6 +45,7 @@ function PostForm({post}) {
             const file = data.image[0]? 
                         await appwriteService.uploadFile(data.image[0]):null
             if(file){
+                console.log("🚀 ~ submit ~ file:", file);
                 data.featuredImage = file.$id
                 const dbPost = await appwriteService.createPost({
                     ...data,
@@ -129,7 +131,7 @@ function PostForm({post}) {
             options={["active", "inactive"]}
             label="Status"
             className="mb-4"
-            {...register("status", { required: true })}
+            {...register("status", { required: true, defaultValue: post?.status || "active" })}
         />
         <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
             {post ? "Update" : "Submit"}

@@ -50,13 +50,17 @@ export class AuthService {
     }
   }
 
-  async getCurrentUser() {
+  async getCurrentUser(signal) {
     try {
-      const current = await this.account.get();
+      const current = await this.account.get({ signal });
 
       return current;
     } catch (error) {
-      console.error(`Error getting current user: ${error.message}`);
+      if (error.name === "AbortError") {
+        console.log("Request aborted");
+      }
+
+      console.error(`Error getting current user: ${error.name}`);
       if (error.cause) {
         console.error(
           `Appwrite service:: getCurrentUser :: ${error.cause.message}`
