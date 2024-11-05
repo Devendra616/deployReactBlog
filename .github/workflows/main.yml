@@ -1,0 +1,14 @@
+            - name: Build and Publish React
+  # You may pin to the exact commit or the version.
+  # uses: mmedoo/build-react-on-push@5b62d49604030efe15248283e065e04888f21a41
+  uses: mmedoo/build-react-on-push@v1.3
+  with:
+    # GitHub token for authentication
+    GITHUB_TOKEN: 
+    # Directory in which the app is located (default is root)
+    APP_DIRECTORY: # optional, default is .
+    # Directory in which the files shall be placed (default is root)
+    TARGET_DIRECTORY: # optional, default is .
+    # Branch name to which the build artifacts will be pushed (default is build)
+    BRANCH_NAME: # optional, default is build
+          
